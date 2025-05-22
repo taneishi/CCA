@@ -12,8 +12,8 @@ There are two data matrices with a relation for each row, $X = [x_{i,j}]$ of $(n
 Without loss of generality, we can assume that each row has zero mean,
 ```math
 \begin{equation}\begin{split}
-\sum_{i=1}^n x_{i,j} &= 0, \quad j = 1, \dots, p_1 \\
-\sum_{i=1}^n y_{i,j} &= 0, \quad j = 1, \dots, p_2.
+\sum_{i=1}^n x_{i,j} &= 0 \quad for \quad j = 1, \dots, p_1 \\
+\sum_{i=1}^n y_{i,j} &= 0 \quad for \quad j = 1, \dots, p_2.
 \end{split}\end{equation}
 ```
 
@@ -26,13 +26,13 @@ S = X A, \quad T = Y B.
 \end{equation}
 ```
 
-When we perform a linear transformation that maximizes the correlation for each feature, each feature is orthogonal to all but the corresponding feature. That is, denote the i-th features of X and Y by $X_i$ and $Y_i$, then $X_i \prescript{t}{}{Y_j} = 0$ if $i \ne j$.
+When we perform a linear transformation that maximizes the correlation for each feature, each feature is orthogonal to all but the corresponding feature. That is, denote the $i$-th features of X and Y by $X_i$ and $Y_i$, then $X_i \prescript{t}{}{Y_j} = 0$ if $i \ne j$.
 
 Therefore, a number of the dimension of the canonical coordinates is equal to the smaller of X and Y ranks, that is, $d = \mathrm{min}\big(\mathrm{rank}(X), \mathrm{rank}(Y)\big)$. Consequently, the correlation coordinates $S$ and $T$ are cross-orthogonal.
 
 ```math
 \begin{equation}
-\prescript{t}{}{S} T = D
+(1) \quad \prescript{t}{}{S} T = D
 \label{orthogonal}
 \end{equation}
 ```
@@ -41,7 +41,7 @@ where $D$ is a diagonal matrix in $d$ dimensions.
 We can take $A$ and $B$ scaling to satisfy
 ```math
 \begin{equation}
-\prescript{t}{}{S} S = I_d, \quad \prescript{t}{}{T} T = I_d,
+(2) \quad \prescript{t}{}{S} S = I_d, \quad \prescript{t}{}{T} T = I_d,
 \label{scale}
 \end{equation}
 ```
@@ -51,8 +51,8 @@ where $I_d$ is the identity matrix in $d$ dimensions. Thus $S$ and $T$ are ortho
 
 We must prove that canonical coordinates exist.
 Here we show the simplest case, where the $X$ and $Y$ have the same dimensions and there are no column degeneracies, that is, $p_1 = p_2 = d$.
-Then $(d \times d)$ matrices $A$ and $B$ have $2d^2$ total degrees of freedom. Each equation in \eqref{scale} requests $d(d + 1)/2$ constraints, taking into account that $\prescript{t}{}{S} S$ and $\prescript{t}{}{T} T$ are symmetric matrices.
-Equation \eqref{orthogonal} requests $d^2 − d$ constraints, because the elements of $D$ are not constrained. Now,
+Then $(d \times d)$-matrices $A$ and $B$ have $2d^2$ total degrees of freedom. Each equation in (2) requests $d(d + 1)/2$ constraints, taking into account that $\prescript{t}{}{S} S$ and $\prescript{t}{}{T} T$ are symmetric matrices.
+Equation (1) requests $d^2 − d$ constraints, because the elements of $D$ are not constrained. Now,
 
 ```math
 \begin{equation}
@@ -82,12 +82,12 @@ where $U$ and $V$ are orthogonal and $\Sigma$ is diagonal.
 Now we define
 ```math
 \begin{equation}
-A \equiv R^{-1}_1 U, \quad B \equiv R^{-1}_2 V
+(3) \quad A \equiv R^{-1}_1 U, \quad B \equiv R^{-1}_2 V
 \label{ab}
 \end{equation}
 ```
 
-Then we can confirm the equations \eqref{orthogonal} and \eqref{scale}:
+Then we can confirm the equations (1) and (2):
 ```math
 \begin{equation}
 \begin{split}
@@ -111,7 +111,7 @@ Note that we do not actually require the computation of the inverse matrices. Si
 ```
 and an analogous calculation for $\prescript{t}{}{T} T = I_{p_2}$.
 
-If $p_1 \ne p_2$, or if there are degeneracies, then only the first $d$ columns of $S$ and $T$ are kept in equation \eqref{ab}, corresponding to the $d$ largest singular values in $\Sigma$.
+If $p_1 \ne p_2$, or if there are degeneracies, then only the first $d$ columns of $S$ and $T$ are kept in equation (3), corresponding to the $d$ largest singular values in $\Sigma$.
 
 ## Algorithm Using SVD Only
 
@@ -139,7 +139,7 @@ A \equiv V_1 \Sigma^{-1}_1 U, \quad B \equiv V_2 \Sigma^{-1}_2 V
 \end{equation}
 ```
 
-Confirm equations \eqref{orthogonal} and \eqref{scale} as above:
+Confirm equations (1) and (2) as above:
 ```math
 \begin{equation}
 \begin{split}
@@ -163,4 +163,4 @@ D &= \prescript{t}{}{S} T = \prescript{t}{}{A} \prescript{t}{}{X} Y B \\
 and correspondingly for $\prescript{t}{}{T} T = I_{p_2}$.
 
 [^Jordan1875]: C. Jordan, *Essai sur la géométrie à n dimensions*, **Bull Soc Math France**, 1875.
-[^Press2011] W.H. Press, *Canonical Correlation Clarified by Singular Value Decomposition*, 2011.
+[^Press2011]: W.H. Press, *Canonical Correlation Clarified by Singular Value Decomposition*, 2011.
